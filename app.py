@@ -4,21 +4,13 @@ st.title('ppr.ai')
 st.subheader('Exam Prep Assistant using LLMs')
 
 with st.sidebar:
-        st.sidebar.header("Your pdfs")
+        st.sidebar.header("Your files")
         st.write('Please enter your name')
         name = st.text_input('Name')
-        pdf_files = st.file_uploader("Choose files", accept_multiple_files=True)
+        files = st.file_uploader("Choose files", accept_multiple_files=True)
         if st.button("Process"):
             with st.spinner("Processing..."):
-                # get pdf files
-                raw_text = utils.read_files(pdf_files)
-                print(raw_text)    
-                # split text into chunks
-                # text_chunks = get_chunks(raw_text)
-                # store chunks in vectorstore
-                # vectorstore = get_vectorstore(text_chunks)
-                # create conversation chain
-                # st.session_state.conversation = get_conversation_chain(vectorstore)
+                utils.process_files(files)
                 st.success("Done!")
                 st.snow()
 
@@ -43,7 +35,7 @@ if name:
         with st.chat_message("assistant",avatar="✨"):
             with st.spinner():
                 # response = chatbot_utils.reply(name,prompt,code)
-                response = "This is a test response"
+                response = utils.answer_question(name,prompt)
                 st.write(response) 
         message = {"role": "assistant", "content": response}
         st.session_state.messages.append(message)
