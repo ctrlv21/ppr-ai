@@ -35,7 +35,7 @@ if name:
         with st.chat_message("assistant",avatar="✨"):
             with st.spinner():
                 # response = chatbot_utils.reply(name,prompt,code)
-                response = utils.answer_question(name,prompt)
+                response = utils.answer_question(prompt=prompt)
                 st.write(response) 
         message = {"role": "assistant", "content": response}
         st.session_state.messages.append(message)
